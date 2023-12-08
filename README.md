@@ -63,3 +63,30 @@ npm i @tanstack/react-query-devtools
       => change this functionality, you can use options like refetchOnMount, refetchOnWindowFocus, refetchOnReconnect and refetchInterval
 
       => "inactive" queries are garbage collected after 5 minutes, silently retried 3 times, with exponential backoff delay ...
+
+7. invalidate?(update)
+   import { useQueryClient } from "@tanstack/react-query";
+   const client = useQueryClient();
+   ...
+   onClick={() => {
+   client.invalidateQueries(["tests", false]);
+   }}
+
+8. mutation?
+   https://tanstack.com/query/latest/docs/react/guides/mutations
+
+   import { useMutation,useQueryClient } from "@tanstack/react-query";
+   const client = useQueryClient();
+
+//어떤 것을 인자로 받아 어떤 함수 호출할건지 정의
+const addTest=useMutation(({test,url})=>addNewTest(test,url),
+{
+onSuccess:()=>client.invalidateQueries(['tests']),
+// 성공적으로 Mutation 됐을 경우
+});
+...
+.then((url)=>{
+addTest.mutate({test,url},{onSuccess:()=>{
+console.log("success")
+}})
+})
