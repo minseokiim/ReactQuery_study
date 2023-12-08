@@ -1,13 +1,14 @@
 Hooks(함수들)은 값의 재사용이 아니라, 로직의 재사용을 위해 만들어짐
 
-- 리액트 쿼리
+# 리액트 쿼리
   https://tanstack.com/query/latest
 
-1. 설치
+1. 설치<br>
    npm i @tanstack/react-query
 
 2. https://tanstack.com/query/latest/docs/react/quick-start
-   //app.js에서
+  <br>
+  //app.js에서
    import {
    QueryClient,
    QueryClientProvider,
@@ -22,7 +23,8 @@ return (
 );
 
 3. https://tanstack.com/query/latest/docs/react/reference/useQuery 참고하여 사용
-   //products.jsx에서
+  <br>
+  //products.jsx에서
    const {
    isLoading,
    error,
@@ -34,12 +36,12 @@ return (
    },
    });
 
-4. dev tools 설치
+4. dev tools 설치<br>
    https://tanstack.com/query/latest/docs/react/devtools
 
 npm i @tanstack/react-query-devtools
 
-5. dev tools 사용
+5. dev tools 사용<br>
    //app.js에서
    import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
    ...
@@ -52,7 +54,7 @@ npm i @tanstack/react-query-devtools
 
 => ![Alt text](image.png)
 
-6. stale?
+6. stale?<br>
    https://tanstack.com/query/latest/docs/react/guides/important-defaults
    (디폴트: stale은 0, cache는 5분)
 
@@ -64,7 +66,7 @@ npm i @tanstack/react-query-devtools
 
       => "inactive" queries are garbage collected after 5 minutes, silently retried 3 times, with exponential backoff delay ...
 
-7. invalidate?(update)
+7. invalidate?(update)<br>
    import { useQueryClient } from "@tanstack/react-query";
    const client = useQueryClient();
    ...
@@ -72,19 +74,20 @@ npm i @tanstack/react-query-devtools
    client.invalidateQueries(["tests", false]);
    }}
 
-8. mutation?
+8. mutation?<br>
    https://tanstack.com/query/latest/docs/react/guides/mutations
-
+<br>
+   //예시<br>
    import { useMutation,useQueryClient } from "@tanstack/react-query";
    const client = useQueryClient();
 
-//어떤 것을 인자로 받아 어떤 함수 호출할건지 정의
-const addTest=useMutation(({test,url})=>addNewTest(test,url),
+
+const addTest=useMutation(({test,url})=>addNewTest(test,url),  //어떤 것을 인자로 받아 어떤 함수 호출할건지 정의<br>
 {
 onSuccess:()=>client.invalidateQueries(['tests']),
 // 성공적으로 Mutation 됐을 경우
 });
-...
+...<br>
 .then((url)=>{
 addTest.mutate({test,url},{onSuccess:()=>{
 console.log("success")
