@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
-import Products from './Products';
+import React, { useState } from "react";
+import Products from "./Products";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function MainProducts() {
   const [showLeftProducts, setShowLeftProducts] = useState(true);
   const [showRightProducts, setShowRightProducts] = useState(true);
+  const client = useQueryClient(); //클라이언트를 가져오기
+
   return (
-    <main className='container'>
+    <main className="container">
       <div>
         {showLeftProducts && <Products />}
         <button onClick={() => setShowLeftProducts((show) => !show)}>
@@ -18,6 +21,13 @@ export default function MainProducts() {
           Toggle
         </button>
       </div>
+      <button
+        onClick={() => {
+          client.invalidateQueries(["products", false]);
+        }}
+      >
+        Updated!!
+      </button>
     </main>
   );
 }

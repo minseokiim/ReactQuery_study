@@ -11,13 +11,14 @@ export default function Products() {
     error,
     data: products,
   } = useQuery({
-    queryKey: "products",
+    queryKey: ["products", checked],
     queryFn: async () => {
-      console.log("fetching");
+      console.log("fetching", checked);
       return fetch(`data/${checked ? "sale_" : ""}products.json`).then((res) =>
         res.json()
       );
     },
+    staleTime: 3000,
   });
 
   //const [loading, error, products] = useProducts({ salesOnly: checked });
