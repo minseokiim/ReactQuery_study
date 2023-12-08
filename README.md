@@ -26,12 +26,11 @@ return (
    const {
    isLoading,
    error,
-   data: products,
+   data: test,
    } = useQuery({
-   queryKey: "products",
+   queryKey: "test",
    queryFn: async () => {
-   console.log("fetching");
-   return fetch(`data/products.json`).then((res) => res.json());
+   return fetch(`-.json`).then((res) => res.json());
    },
    });
 
@@ -52,3 +51,15 @@ npm i @tanstack/react-query-devtools
    )...
 
 => ![Alt text](image.png)
+
+6. stale?
+   https://tanstack.com/query/latest/docs/react/guides/important-defaults
+   (디폴트: stale은 0, cache는 5분)
+
+   1. useQuery or useInfiniteQuery by default consider cached data as stale !
+      => To change this behavior, you can configure your queries both "globally" and per-query using the "staleTime option"
+
+   2. Stale queries are refetched automatically in the background !
+      => change this functionality, you can use options like refetchOnMount, refetchOnWindowFocus, refetchOnReconnect and refetchInterval
+
+      => "inactive" queries are garbage collected after 5 minutes, silently retried 3 times, with exponential backoff delay ...
