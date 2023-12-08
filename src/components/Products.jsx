@@ -14,7 +14,9 @@ export default function Products() {
     queryKey: "products",
     queryFn: async () => {
       console.log("fetching");
-      return fetch(`data/products.json`).then((res) => res.json());
+      return fetch(`data/${checked ? "sale_" : ""}products.json`).then((res) =>
+        res.json()
+      );
     },
   });
 
